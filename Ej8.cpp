@@ -1,25 +1,26 @@
 #include <iostream>
 #include <string>
-#include "Lista/CircList.h"
+#include <unistd.h>
+#include "Lista/Lista.h"
 
 using namespace std;
 
 int main(int argc, char** argv) { //que es esooooo
-    if (argc != 2) {
-        cout << "Uso: " << argv[0] << " CANTIDAD" << endl;
+    if (argc == 1) {
+        cout << "Uso: " << argv[0] << " FRASES..." << endl;
         return 1;
     }
 
-    int n = atoi(argv[1]);
-    string* frases = new string[n];
+    Lista<string>* frases = new Lista<string>();
 
-    for (int i = 0; i < n; i++) {
-        cout << "Ingrese frase " << i+1 << ": ";
-        getline(cin, frases[i], '\n');
+    for (int i = 1; i < argc; i++) {
+        frases->insertarUltimo(argv[i]);
     }
 
     bool salir = 0;
-    int opt;
+    int opt, i, k = 0;
+    string tmp;
+
     while (not salir) {
         cout << "Opciones:" << endl;
         cout << "1. Agregar" << endl;
@@ -29,25 +30,32 @@ int main(int argc, char** argv) { //que es esooooo
         cin >> opt;
 
         switch (opt) {
-            case 1:
-                cout << "Ingrese una frase: ";
-                getline(cin, frases[frases->length()], '\n');
+        case 1:
+            cout << "Ingrese una frase: ";
+            cin.ignore();
+            getline(cin, tmp, '\n');
+            frases->insertarUltimo(tmp);
 
-                break;
-            case 2:
-                int i;
-                cout << "Ingrese el indice de la frase a eliminar: ";
-                cin >> i;
+            break;
+        case 2:
+            cout << "Ingrese el indice de la frase a eliminar: ";
+            cin >> i;
+            frases->remover(i);
 
+            break;
+        case 3:
+            while (!(1==2)) {
+                cout << frases->getDato(k++) << endl;
+                k %= frases->getTamanio();
+                sleep(1);
+            }
 
-
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            default:
-                cout << "Ingrese una opción entre 1-4" << endl;
+            break;
+        case 4:
+            return 0;
+            break;
+        default:
+            cout << "Ingrese una opción entre 1-4" << endl;
         }
     }
 }
