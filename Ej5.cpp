@@ -1,49 +1,64 @@
-#include <cstdlib>
 #include <iostream>
+#include <cstdlib>
 #include "Lista/Lista.h"
 
 using namespace std;
 
 template<class T>
-Lista<T>* reepetidos(Lista<T>* li) {
-    Lista<T>* repetidos = new Lista<T>();
-    int indx = 0;
-    int contador = 0;
+Lista<T>* repetidos(Lista<T>* li) {
+    Lista<T>* rep = new Lista<T>;
 
-    while (indx < li->getTamanio()) {
-        for (int i = indx+1; i < li->getTamanio(); i++) {
-            if (li->getDato(indx) == li->getDato(i)) contador++;
-        }
+    for (int i = 0; i < li->getTamanio()-1; i++) {
+        if (li->getDato(i) == li->getDato(i+1)) {
+            rep->insertarUltimo(li->getDato(i));
 
-        if (contador != 0) {
-            contador = 0;
-            repetidos->insertarUltimo(li->getDato(indx));
-        }
-        indx++;
+            while (i < li->getTamanio()-1 && !rep->esVacia() && li->getDato(i+1) == rep->getDato(rep->getTamanio()-1)) {
+                i++;
+            }
+        }       
     }
 
-    return repetidos;
+    return rep;
 }
 
-int main(int argc, char **argv) {
+template<class T>
+void ordenar(Lista<T>* li) {
+    T elem;
+    int j;
+
+    for (int i = 1; i < li->getTamanio(); i++) {
+        elem = li->getDato(i);
+        j = i - 1;
+
+        while (j >= 0 && li->getDato(j) > elem) {
+            li->reemplazar(j+1, li->getDato(j));
+            j--;
+        }
+        li->reemplazar(j+1, elem);
+    }
+}
+
+int main(int argc, char** argv) {
     if (argc == 1) {
         cout << "Uso: " << argv[0] << " NUMEROS..." << endl;
         return 1;
     }
 
-    Lista<int>* li = new Lista<int>();
-    Lista<int>* repetidos;
+    Lista<int>* li = new Lista<int>;
+    Lista<int>* rep;
 
     for (int i = 1; i < argc; i++) {
         li->insertarUltimo(atoi(argv[i]));
     }
 
-    repetidos = reepetidos(li);
+    ordenar(li);
+    li->print();
+    rep = repetidos(li);
     
-    if (repetidos->getTamanio() == 0) {
+    if (rep->esVacia()) {
         cout << "No hay elementos repetidos" << endl;
     } else {
         cout << "Los elementos repetidos son: " << endl;
-        repetidos->print();
+        rep->print();
     }
 }
