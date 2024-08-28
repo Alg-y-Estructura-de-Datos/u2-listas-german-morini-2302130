@@ -5,7 +5,7 @@
 using namespace std;
 
 template<class T>
-Lista<T>* repetidos(Lista<T>* li) {
+Lista<T>* repetidos1(Lista<T>* li) {
     Lista<T>* rep = new Lista<T>;
 
     for (int i = 0; i < li->getTamanio()-1; i++) {
@@ -19,6 +19,32 @@ Lista<T>* repetidos(Lista<T>* li) {
     }
 
     return rep;
+}
+
+template<class T>
+bool estaEn(Lista<T>* li, T val) {
+    for (int i = 0; i < li->getTamanio(); i++) {
+        if (val == li->getDato(i)) return true;
+    }
+    return false;
+}
+
+template<class T>
+Lista<T>* repetidos2(Lista<T>* li) {
+    Lista<T>* repetidos = new Lista<T>;
+
+    for (int i = 0; i < li->getTamanio()-1; i++) {
+        if (estaEn(repetidos, li->getDato(i))) continue;
+
+        for (int j = i+1; j < li->getTamanio(); j++) {
+            if (li->getDato(i) == li->getDato(j)) {
+                repetidos->insertarUltimo(li->getDato(i));
+                break;
+            }
+        }
+    }
+
+    return repetidos;
 }
 
 template<class T>
@@ -45,20 +71,23 @@ int main(int argc, char** argv) {
     }
 
     Lista<int>* li = new Lista<int>;
-    Lista<int>* rep;
+    Lista<int> *rep1, *rep2;
 
     for (int i = 1; i < argc; i++) {
         li->insertarUltimo(atoi(argv[i]));
     }
 
-    ordenar(li);
+    rep2 = repetidos2(li);
     li->print();
-    rep = repetidos(li);
+    ordenar(li);
+    rep1 = repetidos1(li);
+    ordenar(rep2);
     
-    if (rep->esVacia()) {
+    if (rep1->esVacia()) {
         cout << "No hay elementos repetidos" << endl;
     } else {
         cout << "Los elementos repetidos son: " << endl;
-        rep->print();
+        rep1->print();
+        rep2->print();
     }
 }
