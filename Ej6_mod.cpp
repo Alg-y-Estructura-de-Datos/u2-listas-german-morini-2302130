@@ -34,13 +34,13 @@ class Contacto {
         }
 };
 
-void cargar_contactos(CircList<Contacto>& l, string archivo) {
+template<class T>
+void cargar_contactos(CircList<T>& l, string archivo) {
     ifstream file(archivo);
 
     if (!file) exit(2);
 
-    Contacto c;
-
+    T c;
     while (file >> c) {
         l.insertarUltimo(c);
     }
@@ -48,16 +48,14 @@ void cargar_contactos(CircList<Contacto>& l, string archivo) {
     file.close();
 }
 
-void guardar_contactos(CircList<Contacto>& l, string archivo) {
+template<class T>
+void guardar_contactos(CircList<T>& l, string archivo) {
     ofstream file(archivo);
 
     if (!file) exit(2);
 
     for (int i = 0; i < l.getTamanio(); i++) {
-        try {
-            file << l.getDato(i) << endl;
-            // no se, no anda, no quiero saberlo
-        } catch (int e) {}
+        file << l.getDato(i) << endl;
     }
 
     file.close();
@@ -86,7 +84,8 @@ Contacto buscar(CircList<Contacto>& l, string nom) {
 }
 
 void eliminar(CircList<Contacto>& l, string nom) {
-    // hacer
+    Contacto c(nom, 42069);
+    l.eliminarPorValor(c);
 }
 
 int main() {
