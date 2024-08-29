@@ -35,11 +35,11 @@ void aniadir_contactos(Lista<Contacto>& l, int n = 5) {
 }
 
 Contacto buscar(Lista<Contacto>& l, string nom) {
-
+    // hacer
 }
 
 void eliminar(Lista<Contacto>& l, string nom) {
-
+    // hacer
 }
 
 int main(int argc, char **argv) {
