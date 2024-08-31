@@ -34,6 +34,10 @@ class Contacto {
         }
 };
 
+/*
+    esto va a permitir poder usar una sola función para poder cargar/guardar cosas en archivos
+    cada clase va a definir como se va a guardar
+*/
 template<class T>
 void cargar_contactos(CircList<T>& l, string archivo) {
     ifstream file(archivo);
