@@ -136,6 +136,7 @@ func main() {
 	// inicializa el navegador en google
 	navegar("https://www.google.com")
 
+	fmt.Println("\033[H\033[2J")
 	for {
 		println()
 		println("🔎", historial[cursor].url)
@@ -149,6 +150,7 @@ func main() {
 		println("6. Salir")
 		print("> ")
 		opt = src.Numero_validado(1, len(opciones))
+		fmt.Println("\033[H\033[2J")
 		opciones[opt-1]()
 	}
 }

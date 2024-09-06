@@ -66,7 +66,8 @@ int main(int argc, char **argv) {
         cout << "5. Contar contactos" << endl;
         cout << "6. Salir" << endl << "> ";
         cin >> opt;
-
+        
+        cout << "\033[H\033[2J";
         switch (opt) {
         case 1:
             cout << "¿Cuantos deseas agregar?: ";

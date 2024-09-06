@@ -1,8 +1,6 @@
 #include <cstdio>
 #include <fstream>
 #include <iostream>
-#include <istream>
-#include <ostream>
 #include "Lista/CircList.h"
 
 using namespace std;

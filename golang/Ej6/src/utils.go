@@ -47,18 +47,18 @@ func Validar_fecha(fec Fecha) bool {
 	return false
 }
 
-func Fecha_validada() Fecha {
+func Fecha_validada(prompt string) Fecha {
 	var fec Fecha
 
 	for {
 		print("   Dia: ")
-		fec.Dia = Numero_validado(1, 31)
+		fec.Dia = Numero_validado(1, 31, prompt)
 
 		print("   Mes: ")
-		fec.Mes = Numero_validado(1, 12)
+		fec.Mes = Numero_validado(1, 12, prompt)
 
 		print("   Año: ")
-		fec.Anio = Numero_validado(math.MinInt32, math.MaxInt32)
+		fec.Anio = Numero_validado(math.MinInt32, math.MaxInt32, prompt)
 
 		if !Validar_fecha(fec) {
 			println("No es una fecha válida! Por favor, vuelva a ingresar una fecha")
@@ -68,7 +68,7 @@ func Fecha_validada() Fecha {
 	}
 }
 
-func Numero_validado(inicio int, fin int) int {
+func Numero_validado(inicio int, fin int, prompt string) int {
 	var n int
 	var s string
 	var err error
@@ -78,7 +78,7 @@ func Numero_validado(inicio int, fin int) int {
 		n, err = strconv.Atoi(s)
 		if err != nil || n < inicio || n > fin {
 			println("Ingrese un valor numerico entre", inicio, "-", fin)
-			print("> ")
+			print(prompt)
 		} else {
 			break
 		}
